@@ -13,34 +13,31 @@
         <div class="card-body col-12 col-sm-8 col-lg-6">
           <h5 class="card-title display-2 text-center">Random Song Finder Tool</h5>
           <p class="card-text">Find a song!</p>
-            <div class="btn-group">
+            <div class="dropdown">
                 <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Categories
                 </button>
-                <ul class="dropdown-menu">
-                <li>Top Songs of All Time</li>
-                <li>All Songs</li>
-                <li>Today's Top Hits</li>
-                <li>70's</li>
-                <li>80's</li>
-                <li>90's</li>
-                <li>00's</li>
-                <li>10's</li>
-                <li>20's</li>
-                </ul>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item">All Songs</a>
+                <la class="dropdown-item"i>Today's Top Hits</a>
+                <a class="dropdown-item">70's</a>
+                <a class="dropdown-item">80's</a>
+                <a class="dropdown-item">90's</a>
+                <a class="dropdown-item">00's</a>
+                <a class="dropdown-item">10's</a>
+                <a class="dropdown-item">20's</a>
+                </div>
             </div>
-            <div class="btn-group">
+            <div class="dropdown">
                 <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Genres
                 </button>
-                <ul class="dropdown-menu">
-                <li>Pop</li>
-                <li>Rock</li>
-                <li>Hip Hop</li>
-                <li>R&B</li>
-                <li>Country</li>
-                <li>EDM</li>
-                </ul>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item">Pop</a>
+                <a class="dropdown-item">Rock</a>
+                <a class="dropdown-item">Hip Hop</a>
+                <a class="dropdown-item">Country</a>
+                </div>
             </div>
         </div>
           <a href="#" class="btn btn-primary">Go</a>
@@ -53,5 +50,6 @@
     </div>
     </div>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
