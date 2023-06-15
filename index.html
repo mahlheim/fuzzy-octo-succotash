@@ -8,12 +8,18 @@
     <title>Random Song & Fact Finder Tool</title>
 </head>
 <body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1">Random Song Finder Tool</span>
+        </div>
+      </nav>
     <main class="d-flex min-vh-100">
     <div class="container-fluid my-auto">
-    <div class="card my-5">
-        <div class="card-body col-12 col-sm-8 col-lg-6 mx-auto bg-white">
-          <h5 class="card-title display-2 d-flex justify-content-center bg-white">Random Song & Fact Finder Tool</h5>
-          <p class="card-text d-flex justify-content-center bg-white">Find a song and a fact!</p>
+    <div class="card my-5 d-flex">
+        <div class="card-body col-12 col-sm-8 col-lg-6 mx-auto text-white bg-dark mb-3" style="max-width: 40rem;">
+          <h5 class="card-title display-5 d-flex justify-content-center ">Random Song Finder Tool</h5>
+          <p class="card-text d-flex justify-content-center">Find a song and a fact!</p>
+          <div class="row">
             <div class="dropdown mx-auto d-flex justify-content-center" style="width: 0px">
                 <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Categories
@@ -29,6 +35,7 @@
                 <a class="dropdown-item">20's</a>
                 </div>
             </div>
+
             <div class="dropdown mx-auto d-flex justify-content-center" style="width: 0px">
                 <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Genres
@@ -40,8 +47,10 @@
                 <a class="dropdown-item" data-genre="country">Country</a>
                 </div>
             </div>
-        </div>
-          <a href="#" class="btn btn-primary mx-auto">Go</a>
+            </div>
+            <div id="go-button"><a href="#" class="btn btn-primary mx-auto">Go</a></div>
+                
+            </div>
         </div>
         <div class="card" id="your-find">
             <div class="card-body bg-white mx-auto">
@@ -49,6 +58,7 @@
               <div class="bg-white mx-auto" id="player"></div>
               <div class="bg-white mx-auto" id="facts"></div>
             </div>
+            <div id="player"></div>
         </div>
     </div>
     </div>
