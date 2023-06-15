@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Random Song Finder Tool</title>
+    <title>Random Song & Fact Finder Tool</title>
 </head>
 <body>
     <nav class="navbar navbar-dark bg-dark">
@@ -18,7 +18,7 @@
     <div class="card my-5 d-flex">
         <div class="card-body col-12 col-sm-8 col-lg-6 mx-auto text-white bg-dark mb-3" style="max-width: 40rem;">
           <h5 class="card-title display-5 d-flex justify-content-center ">Random Song Finder Tool</h5>
-          <p class="card-text d-flex justify-content-center">Find a song!</p>
+          <p class="card-text d-flex justify-content-center">Find a song and a fact!</p>
           <div class="row">
             <div class="dropdown mx-auto d-flex justify-content-center" style="width: 0px">
                 <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -52,10 +52,11 @@
                 
             </div>
         </div>
-        
-        <div class="card">
+        <div class="card" id="your-find">
             <div class="card-body bg-white mx-auto">
               Your find:
+              <div class="bg-white mx-auto" id="player"></div>
+              <div class="bg-white mx-auto" id="facts"></div>
             </div>
             <div id="player"></div>
         </div>

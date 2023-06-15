@@ -3,18 +3,50 @@ var YOUTUBE_API_KEY = 'AIzaSyD5N0cU-1PafmBb_Oob3mAOOecX9I-MAHs';
 // Add your YouTube Data API key here
 const apiKey = 'AIzaSyD5N0cU-1PafmBb_Oob3mAOOecX9I-MAHs';
 
+// Function to check if a video is embeddable
+async function isVideoEmbeddable(videoId) {
+  try {
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=status&id=${videoId}&key=${apiKey}`, {
+      credentials: 'same-origin' // Include SameSite attribute for the cookie
+    });
+    const data = await response.json();
+    
+    // Function to check if the video is embeddable
+    if (data.items && data.items.length > 0) {
+      const video = data.items[0];
+      return video.status.embeddable;
+    }
+    
+    return false;
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+}
+
 // Function to generate a random song based on genre
 async function generateRandomSong(genre) {
   try {
-    // Search for videos based on genre using YouTube API
     const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${genre}%20music&type=video&key=${apiKey}`, {
       credentials: 'same-origin' // Include SameSite attribute for the cookie
     });
     const data = await response.json();
 
-    // Get a random video from the search results
-    const randomIndex = Math.floor(Math.random() * data.items.length);
-    const randomVideo = data.items[randomIndex];
+    // Filter out videos that are not embeddable
+    const embeddableVideos = [];
+    for (const item of data.items) {
+      const videoId = item.id.videoId;
+      if (videoId && item.snippet.title && item.snippet.thumbnails) {
+        const isEmbeddable = await isVideoEmbeddable(videoId);
+        if (isEmbeddable) {
+          embeddableVideos.push(item);
+        }
+      }
+    }
+
+    // Get a random video from the embeddable videos
+    const randomIndex = Math.floor(Math.random() * embeddableVideos.length);
+    const randomVideo = embeddableVideos[randomIndex];
 
     // Return the video ID and title
     return {
@@ -64,4 +96,18 @@ goButton.addEventListener('click', async () => {
   const genre = selectedGenre.dataset.genre;
   const song = await generateRandomSong(genre);
   loadPlayer(song.videoId);
+  getFact();
 });
+
+// Generates random fact
+function getFact() {
+  var facts = document.querySelector('#facts');
+  var url = 'https://uselessfacts.jsph.pl/api/v2/facts/random';
+  fetch(url)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+  facts.textContent = data.text;  
+  })
+}
