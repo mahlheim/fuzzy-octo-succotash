@@ -1,25 +1,35 @@
-// YouTube API key
-var YOUTUBE_API_KEY = 'AIzaSyD5N0cU-1PafmBb_Oob3mAOOecX9I-MAHs';
-// Add your YouTube Data API key here
-const apiKey = 'AIzaSyD5N0cU-1PafmBb_Oob3mAOOecX9I-MAHs';
+// YouTube API keys
+var youtubeApiKeys = ['AIzaSyCBUuou068cFf3N1oXIIoaOh3ELzfKBkHw', 'AIzaSyD5N0cU-1PafmBb_Oob3mAOOecX9I-MAHs','AIzaSyDo3wiEmDWCkWxi2UIs8FqXCt4IxcghxD4'];
+var currentApiKeyIndex = 0;
+
+// Function to get the current API key
+function getCurrentApiKey() {
+  return youtubeApiKeys[currentApiKeyIndex];
+}
+
+// Function to switch to the next API key
+function switchToNextApiKey() {
+  currentApiKeyIndex = (currentApiKeyIndex + 1) % youtubeApiKeys.length;
+}
 
 // Function to check if a video is embeddable
 async function isVideoEmbeddable(videoId) {
   try {
-    const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=status&id=${videoId}&key=${apiKey}`, {
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=status&id=${videoId}&key=${getCurrentApiKey()}`, {
       credentials: 'same-origin' // Include SameSite attribute for the cookie
     });
     const data = await response.json();
-    
+
     // Function to check if the video is embeddable
     if (data.items && data.items.length > 0) {
       const video = data.items[0];
       return video.status.embeddable;
     }
-    
+
     return false;
   } catch (error) {
     console.error('Error:', error);
+    switchToNextApiKey(); // Switch to the next API key in case of an error
     throw error;
   }
 }
@@ -27,7 +37,7 @@ async function isVideoEmbeddable(videoId) {
 // Function to generate a random song based on genre
 async function generateRandomSong(genre) {
   try {
-    const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${genre}%20music&type=video&key=${apiKey}`, {
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${genre}%20music&type=video&key=${getCurrentApiKey()}`, {
       credentials: 'same-origin' // Include SameSite attribute for the cookie
     });
     const data = await response.json();
@@ -55,6 +65,7 @@ async function generateRandomSong(genre) {
     };
   } catch (error) {
     console.error('Error:', error);
+    switchToNextApiKey(); // Switch to the next API key in case of an error
     throw error;
   }
 }
@@ -108,6 +119,6 @@ function getFact() {
     return response.json();
   })
   .then(function (data) {
-  facts.textContent = data.text;  
+    facts.textContent = data.text;  
   })
 }
