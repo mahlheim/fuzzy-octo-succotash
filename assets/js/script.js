@@ -96,4 +96,18 @@ goButton.addEventListener('click', async () => {
   const genre = selectedGenre.dataset.genre;
   const song = await generateRandomSong(genre);
   loadPlayer(song.videoId);
+  getFact();
 });
+
+// Generates random fact
+function getFact() {
+  var facts = document.querySelector('#facts');
+  var url = 'https://uselessfacts.jsph.pl/api/v2/facts/random';
+  fetch(url)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+  facts.textContent = data.text;  
+  })
+}
