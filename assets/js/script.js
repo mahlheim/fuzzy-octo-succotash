@@ -107,12 +107,12 @@ attachDropdownEventListeners();
 // Event listener for the "Go" button
 const goButton = document.querySelector('.btn-primary');
 goButton.addEventListener('click', async () => {
-  const selectedGenre = document.querySelector('.dropdown-item.active');
-  const genre = selectedGenre.dataset.genre;
-  const song = await generateRandomSong(genre);
-  loadPlayer(song.videoId);
-  getFact();
+  // const selectedGenre = document.querySelector('.dropdown-item.active');
+  // const genre = selectedGenre.dataset.genre;
+  // const song = await generateRandomSong(genre);
+  // loadPlayer(song.videoId);
   renderPreviousFind();
+  getFact();
 });
 
 // Function to load the YouTube player
@@ -159,3 +159,4 @@ function renderPreviousFind() {
     previousFact.textContent = lastFact;
   }
 }
+
