@@ -103,11 +103,12 @@ dropdownItems.forEach(item => {
 // Event listener for the "Go" button
 const goButton = document.querySelector('.btn-primary');
 goButton.addEventListener('click', async () => {
-  const selectedGenre = document.querySelector('.dropdown-item.active');
-  const genre = selectedGenre.dataset.genre;
-  const song = await generateRandomSong(genre);
-  loadPlayer(song.videoId);
+  // const selectedGenre = document.querySelector('.dropdown-item.active');
+  // const genre = selectedGenre.dataset.genre;
+  // const song = await generateRandomSong(genre);
+  // loadPlayer(song.videoId);
   getFact();
+  renderPreviousFind();
 });
 
 // Generates random fact
@@ -119,6 +120,16 @@ function getFact() {
     return response.json();
   })
   .then(function (data) {
-    facts.textContent = data.text;  
+    var funFact = data.text;
+    facts.textContent = "Did you know? " + data.text;  
+    localStorage.setItem('fact', JSON.stringify(funFact));
   })
+}
+
+function renderPreviousFind() {
+  var previousFact = document.querySelector('#factsHistory');
+  var lastFact = JSON.parse(localStorage.getItem('fact'));
+  if (lastFact !== null) {
+    previousFact.textContent = lastFact;
+  }
 }
