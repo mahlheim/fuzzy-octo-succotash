@@ -107,10 +107,10 @@ attachDropdownEventListeners();
 // Event listener for the "Go" button
 const goButton = document.querySelector('#go-button');
 goButton.addEventListener('click', async () => {
-  // const selectedGenre = document.querySelector('.dropdown-item.active');
-  // const genre = selectedGenre.dataset.genre;
-  // const song = await generateRandomSong(genre);
-  // loadPlayer(song.videoId);
+  const selectedGenre = document.querySelector('.dropdown-item.active');
+  const genre = selectedGenre.dataset.genre;
+  const song = await generateRandomSong(genre);
+  loadPlayer(song.videoId);
   renderPreviousFind();
   getFact();
 });
