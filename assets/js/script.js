@@ -90,7 +90,7 @@ dropdownItems.forEach(item => {
 });
 
 // Event listener for the "Go" button
-const goButton = document.querySelector('.btn-primary');
+const goButton = document.querySelector('#go-button');
 goButton.addEventListener('click', async () => {
   const selectedGenre = document.querySelector('.dropdown-item.active');
   const genre = selectedGenre.dataset.genre;
