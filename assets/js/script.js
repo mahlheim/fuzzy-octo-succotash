@@ -2,6 +2,10 @@
 var youtubeApiKeys = ['AIzaSyCBUuou068cFf3N1oXIIoaOh3ELzfKBkHw', 'AIzaSyD5N0cU-1PafmBb_Oob3mAOOecX9I-MAHs','AIzaSyDo3wiEmDWCkWxi2UIs8FqXCt4IxcghxD4'];
 var currentApiKeyIndex = 0;
 
+// Global iFrame Variables
+let currentVideoId = null;
+let player = null;
+
 // Function to get the current API key
 function getCurrentApiKey() {
   return youtubeApiKeys[currentApiKeyIndex];
@@ -49,9 +53,17 @@ async function generateRandomSong(genre) {
       if (videoId && item.snippet.title && item.snippet.thumbnails) {
         const isEmbeddable = await isVideoEmbeddable(videoId);
         if (isEmbeddable) {
-          embeddableVideos.push(item);
+          embeddableVideos.push({
+            videoId: videoId,
+            title: item.snippet.title
+          });
         }
       }
+    }
+
+    // Check if there are any embeddable videos
+    if (embeddableVideos.length === 0) {
+      throw new Error('No embeddable videos found.');
     }
 
     // Get a random video from the embeddable videos
@@ -60,8 +72,8 @@ async function generateRandomSong(genre) {
 
     // Return the video ID and title
     return {
-      videoId: randomVideo.id.videoId,
-      title: randomVideo.snippet.title
+      videoId: randomVideo.videoId,
+      title: randomVideo.title
     };
   } catch (error) {
     console.error('Error:', error);
@@ -70,35 +82,27 @@ async function generateRandomSong(genre) {
   }
 }
 
-// Function to load the YouTube player
-function loadPlayer(videoId) {
-  // Create the YouTube player
-  new YT.Player('player', {
-    height: '360',
-    width: '640',
-    videoId: videoId,
-    events: {
-      'onReady': onPlayerReady
-    }
-  });
-}
-
 // Function to handle when the YouTube player is ready
 function onPlayerReady(event) {
   event.target.playVideo();
 }
 
 // Event listener for the dropdown items
-const dropdownItems = document.querySelectorAll('.dropdown-item');
-dropdownItems.forEach(item => {
-  item.addEventListener('click', async () => {
-    // Remove the 'active' class from all items
-    dropdownItems.forEach(item => item.classList.remove('active'));
+function attachDropdownEventListeners() {
+  const dropdownItems = document.querySelectorAll('.dropdown-item');
+  dropdownItems.forEach(item => {
+    item.addEventListener('click', () => {
+      // Remove the 'active' class from all items
+      dropdownItems.forEach(item => item.classList.remove('active'));
 
-    // Add the 'active' class to the clicked item
-    item.classList.add('active');
+      // Add the 'active' class to the clicked item
+      item.classList.add('active');
+    });
   });
-});
+}
+
+// Call attachDropdownEventListeners() once when the page loads
+attachDropdownEventListeners();
 
 // Event listener for the "Go" button
 const goButton = document.querySelector('.btn-primary');
@@ -107,9 +111,31 @@ goButton.addEventListener('click', async () => {
   // const genre = selectedGenre.dataset.genre;
   // const song = await generateRandomSong(genre);
   // loadPlayer(song.videoId);
-  getFact();
   renderPreviousFind();
+  getFact();
 });
+
+// Function to load the YouTube player
+function loadPlayer(videoId) {
+  // Destroy the player if there's an existing video loaded
+  if (currentVideoId) {
+    player.destroy();
+    currentVideoId = null;
+  }
+
+  // Create the YouTube player
+  player = new YT.Player('player', {
+    height: '360',
+    width: '640',
+    videoId: videoId,
+    events: {
+      'onReady': onPlayerReady
+    }
+  });
+
+  // Set the current video ID
+  currentVideoId = videoId;
+}
 
 // Generates random fact
 function getFact() {
@@ -133,3 +159,4 @@ function renderPreviousFind() {
     previousFact.textContent = lastFact;
   }
 }
+
