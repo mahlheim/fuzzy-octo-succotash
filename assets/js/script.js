@@ -107,8 +107,8 @@ goButton.addEventListener('click', async () => {
   // const genre = selectedGenre.dataset.genre;
   // const song = await generateRandomSong(genre);
   // loadPlayer(song.videoId);
-  getFact();
   renderPreviousFind();
+  getFact();
 });
 
 // Generates random fact
