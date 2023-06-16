@@ -1,5 +1,5 @@
 // YouTube API keys
-var youtubeApiKeys = ['AIzaSyCBUuou068cFf3N1oXIIoaOh3ELzfKBkHw', 'AIzaSyD5N0cU-1PafmBb_Oob3mAOOecX9I-MAHs','AIzaSyDo3wiEmDWCkWxi2UIs8FqXCt4IxcghxD4'];
+var youtubeApiKeys = ['AIzaSyD5N0cU-1PafmBb_Oob3mAOOecX9I-MAHs', 'AIzaSyCBUuou068cFf3N1oXIIoaOh3ELzfKBkHw','AIzaSyDo3wiEmDWCkWxi2UIs8FqXCt4IxcghxD4'];
 var currentApiKeyIndex = 0;
 
 // Global iFrame Variables
