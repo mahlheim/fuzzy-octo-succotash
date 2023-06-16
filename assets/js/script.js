@@ -111,7 +111,7 @@ goButton.addEventListener('click', async () => {
   const genre = selectedGenre.dataset.genre;
   const song = await generateRandomSong(genre);
   loadPlayer(song.videoId);
-  renderPreviousFind();
+  renderPreviousFind(song.videoId, song.title); // Pass the videoId and title to the renderPreviousFind function
   getFact();
 });
 
@@ -142,21 +142,31 @@ function getFact() {
   var facts = document.querySelector('#facts');
   var url = 'https://uselessfacts.jsph.pl/api/v2/facts/random';
   fetch(url)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    var funFact = data.text;
-    facts.textContent = "Did you know? " + data.text;  
-    localStorage.setItem('fact', JSON.stringify(funFact));
-  })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      var funFact = data.text;
+      facts.textContent = "Did you know? " + data.text;
+      localStorage.setItem('fact', JSON.stringify(funFact));
+    });
 }
 
-function renderPreviousFind() {
-  var previousFact = document.querySelector('#factsHistory');
+// Local Storage and Append ul
+function renderPreviousFind(videoId, title) {
+  var previousList = document.querySelector('#previous');
+  var listItem = document.createElement('li');
+  var link = document.createElement('a');
+  link.href = `https://www.youtube.com/watch?v=${videoId}`;
+  link.textContent = title;
+  listItem.appendChild(link);
+
   var lastFact = JSON.parse(localStorage.getItem('fact'));
   if (lastFact !== null) {
-    previousFact.textContent = lastFact;
+    var factElement = document.createElement('p');
+    factElement.textContent = lastFact;
+    listItem.appendChild(factElement);
   }
-}
 
+  previousList.appendChild(listItem);
+}
