@@ -14,6 +14,9 @@ Navigate to the website. Make selections from each of the dropdown menus and cli
 
 url:  https://mahlheim.github.io/fuzzy-octo-succotash/
 
+    ![screengrab](./assets/screengrab.png)
+![screenrab](./assets/screengrab.png)
+
 ## Credits
 
 APIs:
